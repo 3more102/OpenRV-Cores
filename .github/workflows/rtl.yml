@@ -1,0 +1,17 @@
+name: OpenRV32 RTL Regression
+on:
+  push:
+  pull_request:
+
+jobs:
+  simulate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Icarus Verilog
+        run: sudo apt-get update && sudo apt-get install -y iverilog
+      - name: Check ROM generator
+        run: make check
+      - name: Simulate 10 directed programs
+        run: make test
